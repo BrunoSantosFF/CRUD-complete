@@ -19,3 +19,7 @@ Paletas de cores utilizadas
 #0F5FA6
 #1A80D9
 #F2F2F2
+
+instalando a biblioteca de icones: 
+npm install react-icons
+

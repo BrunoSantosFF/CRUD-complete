@@ -28,7 +28,31 @@
   color: #89ABD9;
 
 }
-
 .container-commands {
   word-spacing: 118px;
+}
+
+.container-options {
+  display: flex;
+  flex-wrap: nowrap;
+  background: #89ABD9;
+}
+
+.class-icon {
+  padding: 5px 71px;
+}
+
+.class-button {
+  position: relative; 
+  overflow: visible;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+}
+
+.icons {
+  transform: translate(-50%, -50%); 
+  position: absolute;
+  padding-bottom: 10px;
 }
