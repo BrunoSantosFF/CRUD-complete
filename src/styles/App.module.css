@@ -1,0 +1,50 @@
+
+
+.container_general {
+  display: flex;
+  background: #1A6DD9;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container_main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  word-spacing: 100px;
+  font-size: 80px;
+  color: #89ABD9;
+
+}
+.container_commands {
+  word-spacing: 118px;
+}
+
+.container_options {
+  display: flex;
+  flex-wrap: nowrap;
+  background: #89ABD9;
+}
+
+.class_icon {
+  padding: 5px 71px;
+}
+
+.class_button {
+  position: relative; 
+  overflow: visible;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+}
+
+.icons {
+  transform: translate(-50%, -50%); 
+  position: absolute;
+  padding-bottom: 10px;
+}

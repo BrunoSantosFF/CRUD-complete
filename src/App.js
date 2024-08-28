@@ -1,60 +1,72 @@
-import "./styles/App.css"
+import styles from "./styles/App.module.css"
+import './styles/App.css'
 
-import { GrAddCircle } from "react-icons/gr";
-import { CiRead } from "react-icons/ci";
-import { IoPencil } from "react-icons/io5";
-import { MdDelete } from "react-icons/md";
+import { GrAddCircle } from "react-icons/gr"
+import { CiRead } from "react-icons/ci"
+import { IoPencil } from "react-icons/io5"
+import { MdDelete } from "react-icons/md"
 
-import React, { useState } from 'react';
+import ScreenCreate from "./pages/ScreenCreate"
+
+import React, { useState } from "react"
 
 function App() {
-  const [create_, setCreate] = useState();
-  const [read_, setRead] = useState();
-  const [update_, setUpdate] = useState();
-  const [delete_, setDelete] = useState();
+  const [select, setSelect] = useState("crud")
 
-  const functionCreate = () => {
-    
-  };
-
-  const functionRead = () => {
-    
-  };
-
-  const functionUpdate = () => {
-    
-  };
-
-  const functionDelete = () => {
-    
-  };
+  //Select page
+  const functionSelect = (page) => {
+    setSelect(page)
+  }
 
   return (
-    <div className="container-general">
-      <div className="container-main">
-        C R U D
-      </div>
-      <div className="container-commands">
-        create read update delete
-      </div>
-      <div className="container-options">
-        <div className="class-icon">
-          <button onClick={functionCreate} className="class-button"><GrAddCircle className="icons"/></button>
+    <div>
+      {select === "crud" && (
+        <div className={styles.container_general}>
+          <div className={styles.container_main}>C R U D</div>
+          <div className={styles.container_commands}>create read update delete</div>
+          <div className={styles.container_options}>
+            <div className={styles.class_icon}>
+              <button
+                onClick={() => functionSelect("create")}
+                className={styles.class_button}
+              >
+                <GrAddCircle className={styles.icons} />
+              </button>
+            </div>
+            <div className={styles.class_icon}>
+              <button
+                onClick={() => functionSelect("read")}
+                className={styles.class_button}
+              >
+                <CiRead className={styles.icons} />
+              </button>
+            </div>
+            <div className={styles.class_icon}>
+              <button
+                onClick={() => functionSelect("update")}
+                className={styles.class_button}
+              >
+                <IoPencil className={styles.icons} />
+              </button>
+            </div>
+            <div className={styles.class_icon}>
+              <button
+                onClick={() => functionSelect("delete")}
+                className={styles.class_button}
+              >
+                <MdDelete className={styles.icons} />
+              </button>
+            </div>
+          </div>
         </div>
-        <div className="class-icon">
-          <button onClick={functionRead} className="class-button"><CiRead className="icons"/></button>
-        </div>
-        <div className="class-icon">
-          <button onClick={functionUpdate} className="class-button"><IoPencil className="icons"/></button>
-        </div>
-        <div className="class-icon">
-          <button onClick={functionDelete} className="class-button"><MdDelete className="icons"/></button>
-        </div>
-      </div>
-      
+      )}
+      {
+        select === 'create' && (
+          <ScreenCreate/>
+        )
+      }
     </div>
-    
-  );
+  )
 }
 
-export default App;
+export default App
