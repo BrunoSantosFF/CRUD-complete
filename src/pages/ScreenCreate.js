@@ -1,6 +1,7 @@
 import styles from '../styles/App.module.css'
 import stylesCreate from '../styles/ScreenCreate.module.css'
 import React, {useState} from 'react';
+import { createUser } from '../services/useServices';
 
 
 function ScreenCreate ({functionSelect}){
@@ -8,12 +9,19 @@ function ScreenCreate ({functionSelect}){
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
 
-  const functionSubmit = (event) => {
+  const functionSubmit = async (event) => {
     event.preventDefault();
-    alert("Está okay")
 
-    setName("")
-    setAge("")
+    try {
+      const data = await createUser(name, age);
+      alert(data.message);
+
+      setName("");
+      setAge("");
+
+    } catch (error) {
+      console.error('Error sending data:', error);
+    }
   }
 
   const functionName = (event) => {
@@ -43,7 +51,7 @@ function ScreenCreate ({functionSelect}){
         </div>
         <div className={stylesCreate.container_button}>
           <button type='submit' >Send</button> 
-          <button onClick={() => functionSelect('crud')}>Back</button>
+          <button type='button' onClick={() => functionSelect('crud')}>Back</button>
         </div>
       </form>
 
