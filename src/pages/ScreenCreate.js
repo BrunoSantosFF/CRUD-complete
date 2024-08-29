@@ -1,8 +1,9 @@
 import styles from '../styles/App.module.css'
+import stylesCreate from '../styles/ScreenCreate.module.css'
 import React, {useState} from 'react';
 
 
-function ScreenCreate (){
+function ScreenCreate ({functionSelect}){
 
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
@@ -23,28 +24,27 @@ function ScreenCreate (){
     setAge(event.target.value)
   }
 
-  const test = () => {
-    console.log(name + age);
-    alert(`${name} + ${age}`)
-  }
   
 
   return (
     <div className={styles.container_general}>
-      <div>
+      <div className={stylesCreate.title}>
         <h1>CREATE</h1>
       </div>
       
-      <form onSubmit={functionSubmit}>
-        <div>
+      <form onSubmit={functionSubmit} className={stylesCreate.container_form}>
+        <div className={stylesCreate.container}>
           <label>Name: </label>
           <input type='text' value={name} onChange={functionName} placeholder='Insert your name'></input>
         </div>
-        <div>
+        <div className={stylesCreate.container}>
           <label>Age: </label>
           <input type='number' value={age} onChange={functionAge} placeholder='Insert your age'></input>
         </div>
-        <button type='submit' onClick={test}>Send</button> 
+        <div className={stylesCreate.container_button}>
+          <button type='submit' >Send</button> 
+          <button onClick={() => functionSelect('crud')}>Back</button>
+        </div>
       </form>
 
     </div>
