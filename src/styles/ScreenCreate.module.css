@@ -32,3 +32,13 @@
   color: yellow;
   background: red;
 }
+
+.container_list {
+
+}
+
+.container_user {
+  border: 1px solid rgb(63, 164, 222);
+  margin-bottom: 2%;
+  padding: 4px;
+}

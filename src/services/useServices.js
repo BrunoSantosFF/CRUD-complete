@@ -9,3 +9,13 @@ export const createUser = async (name, age) => {
     throw error;
   }
 };
+
+export const fetchUsers = async () => {
+  try {
+    const response = await api.get('/users');
+    return response.data;
+  } 
+  catch (error) {
+    throw error;
+  }
+};

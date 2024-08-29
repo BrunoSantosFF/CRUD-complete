@@ -70,17 +70,17 @@ function App() {
       }
       {
         select === 'read' && (
-          <ScreenRead/>
+          <ScreenRead functionSelect={functionSelect}/>
         )
       }
       {
         select === 'update' && (
-          <ScreenUpdate/>
+          <ScreenUpdate functionSelect={functionSelect}/>
         )
       }
       {
         select === 'delete' && (
-          <ScreenDelete/>
+          <ScreenDelete functionSelect={functionSelect}/>
         )
       }
     </div>

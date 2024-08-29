@@ -23,10 +23,13 @@ connection.connect((err) => {
   console.log('Connected with database');
 });
 
+
+//======== Insert Users ========= //
 app.post('/api/create', (req, res) => {
   const { name, age } = req.body;
 
   const query = 'INSERT INTO users (name, age) VALUES (?, ?)';
+
   connection.query(query, [name, age], (err, results) => {
     if (err) {
       console.error('Error saving data', err);
@@ -34,6 +37,20 @@ app.post('/api/create', (req, res) => {
       return;
     }
     res.status(200).json({ message: 'Saving data' });
+  });
+});
+
+//========= Search Users ========= //
+app.get('/api/users', (req, res) => {
+  const query = 'SELECT * FROM users';
+
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('Error fetching data:', err);
+      res.status(500).json({ message: 'Error fetching data:' });
+      return;
+    }
+    res.status(200).json(results);
   });
 });
 
