@@ -7,6 +7,9 @@ import { IoPencil } from "react-icons/io5"
 import { MdDelete } from "react-icons/md"
 
 import ScreenCreate from "./pages/ScreenCreate"
+import ScreenRead from "./pages/ScreenRead"
+import ScreenUpdate from "./pages/ScreenUpdate"
+import ScreenDelete from "./pages/ScreenDelete"
 
 import React, { useState } from "react"
 
@@ -63,6 +66,21 @@ function App() {
       {
         select === 'create' && (
           <ScreenCreate/>
+        )
+      }
+      {
+        select === 'read' && (
+          <ScreenRead/>
+        )
+      }
+      {
+        select === 'update' && (
+          <ScreenUpdate/>
+        )
+      }
+      {
+        select === 'delete' && (
+          <ScreenDelete/>
         )
       }
     </div>
