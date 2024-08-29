@@ -34,7 +34,12 @@
 }
 
 .container_list {
-
+  max-height: 200px; 
+  overflow-y: auto;  
+  border: 1px solid #ddd; 
+  padding: 4px;
+  border-radius: 5px; 
+  margin-bottom: 20px;
 }
 
 .container_user {
