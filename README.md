@@ -1,25 +1,33 @@
-Criando os arquivos para o projeto: 
-  npx create-react-app my_crud 
-  cd my_crud
+# CRUD
 
-Foi criada a pasta backend (javascript) e foi feita a instalação das extensões:
-  mkdir backend
-  cd backend 
-  npm init -y 
-  npm install express mysql cors
+This project aims to create a CRUD with creation, reading, updating and deleting functionalities. To implement this project, React, Node.js and MySQL technologies were used.
 
+![Image CRUD](./images/CRUD.png)
 
-Para executar o projeto:
-  npm start
+### Creating files for the project:
+```bash
+npx create-react-app my_crud 
+cd my_crud
+```
 
-Extras: 
-Paletas de cores utilizadas 
-#1A6DD9
-#89ABD9
-#0F5FA6
-#1A80D9
-#F2F2F2
+### The backend folder (javascript) was created and the extensions were installed:
+```bash
+mkdir backend
+cd backend 
+npm init -y 
+npm install express mysql cors react-icons axios
+```
 
-instalando a biblioteca de icones: 
-npm install react-icons
+### To run the project:
+
+- To run Frontend:
+```bash
+npm start
+```
+- To run the Backend: 
+```bash
+cd backend
+node server.js
+```
+
 
