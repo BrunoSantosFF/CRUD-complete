@@ -54,6 +54,27 @@ app.get('/api/users', (req, res) => {
   });
 });
 
+//========== Delete Users ========//
+app.delete('/api/delete/:userId', (req, res) => {
+  console.log("ERRRROO");
+  
+  const {userId} = req.params;
+  console.log(`${userId}`);
+  
+
+  const query = 'DELETE FROM users WHERE id = ?'
+
+  connection.query(query, [userId], (err, results) => {
+    if (err){
+      console.error('Error deleting data', err);
+      res.status(500).json({message: 'Erro deleted data'})
+      return;
+    }
+    res.status(200).json({message: 'User deleted successfully'})
+  })
+  
+})
+
 app.listen(port, () => {
   console.log(`Server port ${port}`);
 });

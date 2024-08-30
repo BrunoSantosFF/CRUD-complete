@@ -19,3 +19,13 @@ export const fetchUsers = async () => {
     throw error;
   }
 };
+
+export const deleteUsers = async (userId) => {
+  try {
+    const response = await api.delete(`/delete/${userId}`);
+    return response.data;
+  } 
+  catch (error) {
+    throw error;
+  }
+};
