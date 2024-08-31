@@ -56,12 +56,9 @@ app.get('/api/users', (req, res) => {
 
 //========== Delete Users ========//
 app.delete('/api/delete/:userId', (req, res) => {
-  console.log("ERRRROO");
   
   const {userId} = req.params;
-  console.log(`${userId}`);
   
-
   const query = 'DELETE FROM users WHERE id = ?'
 
   connection.query(query, [userId], (err, results) => {

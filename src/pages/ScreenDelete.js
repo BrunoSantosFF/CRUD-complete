@@ -23,13 +23,18 @@ function ScreenDelete ({functionSelect}){
     loadUsers();
   }, []);
 
-  const handleDelete = async (userId) => {
-    try {
-      await deleteUsers(userId);
-      setUsers(users.filter(user => user.id !== userId));
-    } catch (error) {
-      console.error('Erro ao deletar o usuário:', error);
-    }
+  const funtionDelete = async (userId) => {
+  if (window.confirm("Do you really want to delete the user?")) {
+      try {
+        await deleteUsers(userId);
+        setUsers(users.filter(user => user.id !== userId));
+        window.alert("deleted user")
+      } catch (error) {
+        console.error('Erro ao deletar o usuário:', error);
+      }
+
+  } 
+    
   };
 
   return (
@@ -44,7 +49,7 @@ function ScreenDelete ({functionSelect}){
           <div>
             {users.map(user => (
               <div key={user.id} className={stylesCreate.container_user}>
-                <button type='button' onClick={() => handleDelete(user.id)} className={stylesCreate.container_buttonEdit}>{user.name} - {user.age}</button>
+                <button type='button' onClick={() => funtionDelete(user.id)} className={stylesCreate.container_buttonEdit}>{user.name} - {user.age}</button>
               </div>
               
             ))}
