@@ -29,3 +29,14 @@ export const deleteUsers = async (userId) => {
     throw error;
   }
 };
+
+export const updateUser = async (userId,user) => {
+  try {
+    // Faz uma requisição PUT para atualizar o usuário
+    const response = await api.put(`/users/${userId}`, user);
+    return response.data;
+  } 
+  catch (error) {
+    throw error;
+  }
+}

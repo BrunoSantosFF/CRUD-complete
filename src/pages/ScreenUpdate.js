@@ -8,6 +8,7 @@ import ScreenUpdateEdit from "./ScreenUpdateEdit"
 function ScreenUpdate({ functionSelect }) {
   const [users, setUsers] = useState([]);
   const [edit, setEdit] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
     const loadUsers = async () => {
@@ -22,7 +23,8 @@ function ScreenUpdate({ functionSelect }) {
     loadUsers();
   }, []);
 
-  const functionTest = () => {
+  const selectUser = (user) => {
+    setSelectedUser(user)
     setEdit(true);
   };
 
@@ -41,7 +43,7 @@ function ScreenUpdate({ functionSelect }) {
                   <div key={user.id} className={stylesCreate.container_user}>
                     <button
                       type="button"
-                      onClick={functionTest}
+                      onClick={() => {selectUser(user)}}
                       className={stylesCreate.container_buttonEdit}
                     >
                       {user.name} - {user.age}
@@ -62,7 +64,7 @@ function ScreenUpdate({ functionSelect }) {
       )}
       {
         edit && (
-          <ScreenUpdateEdit setEdit={setEdit}/>
+          <ScreenUpdateEdit setEdit={setEdit} user={selectedUser} />
         )
       }
     </div>

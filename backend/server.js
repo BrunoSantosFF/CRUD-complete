@@ -72,6 +72,29 @@ app.delete('/api/delete/:userId', (req, res) => {
   
 })
 
+//============ Update User ========== //
+app.put('/api/users/:userId', (req, res) => {
+  const { userId } = req.params;
+  const { name, age } = req.body;
+
+  const query = 'UPDATE users SET name = ?, age = ? WHERE id = ?';
+
+  connection.query(query, [name, age, userId], (err, results) => {
+    if (err) {
+      console.error('Error updating data:', err);
+      res.status(500).json({ message: 'Error updating data' });
+      return;
+    }
+
+    if (results.affectedRows === 0) {
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
+
+    res.status(200).json({ message: 'User updated successfully' });
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server port ${port}`);
 });
