@@ -1,100 +1,84 @@
-const express = require('express');
-const mysql = require('mysql');
-const cors = require('cors');
+const express = require("express")
+const cors = require("cors")
+const { PrismaClient } = require("@prisma/client")
 
-const app = express();
-const port = 5000; 
+const app = express()
+const port = 5000
 
-app.use(express.json()); 
-app.use(cors()); 
+const prisma = new PrismaClient()
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'root',
-  database: 'crud'
-});
-
-connection.connect((err) => {
-  if (err) {
-    console.error('Not connected with database:', err);
-    return;
-  }
-  console.log('Connected with database');
-});
-
+app.use(express.json())
+app.use(cors())
 
 //======== Insert Users ========= //
-app.post('/api/create', (req, res) => {
-  const { name, age } = req.body;
+app.post("/api/create", async (req, res) => {
+  const { name, age } = req.body
 
-  const query = 'INSERT INTO users (name, age) VALUES (?, ?)';
+  try {
+    const newUser = await prisma.user.create({
+      data: {
+        name,
+        age: parseInt(age),
+      },
+    })
 
-  connection.query(query, [name, age], (err, results) => {
-    if (err) {
-      console.error('Error saving data', err);
-      res.status(500).json({ message: 'Error saving data' });
-      return;
-    }
-    res.status(200).json({ message: 'Saving data' });
-  });
-});
+    res.status(200).json({ message: "User created sucessfully" })
+  } catch (err) {
+    console.error("Error saving data", err)
+    res.status(500).json({ message: "Error saving data" })
+  }
+})
 
 //========= Search Users ========= //
-app.get('/api/users', (req, res) => {
-  const query = 'SELECT * FROM users';
-
-  connection.query(query, (err, results) => {
-    if (err) {
-      console.error('Error fetching data:', err);
-      res.status(500).json({ message: 'Error fetching data:' });
-      return;
-    }
-    res.status(200).json(results);
-  });
-});
+app.get("/api/users", async (req, res) => {
+  try {
+    const users = await prisma.user.findMany()
+    res.status(200).json(users)
+  } catch (err) {
+    console.error("Error fetching data:", err)
+    res.status(500).json({ message: "Error fetching data" })
+  }
+})
 
 //========== Delete Users ========//
-app.delete('/api/delete/:userId', (req, res) => {
-  
-  const {userId} = req.params;
-  
-  const query = 'DELETE FROM users WHERE id = ?'
+app.delete("/api/delete/:userId", async (req, res) => {
+  const { userId } = req.params
 
-  connection.query(query, [userId], (err, results) => {
-    if (err){
-      console.error('Error deleting data', err);
-      res.status(500).json({message: 'Erro deleted data'})
-      return;
-    }
-    res.status(200).json({message: 'User deleted successfully'})
-  })
-  
+  try {
+    const deletedUser = await prisma.user.delete({
+      where: { id: parseInt(userId) },
+    })
+    res.status(200).json({ message: "User deleted successfully", deletedUser })
+  } catch (err) {
+    console.error("Error deleting data", err)
+    res.status(500).json({ message: "Error deleting data" })
+  }
 })
 
 //============ Update User ========== //
-app.put('/api/users/:userId', (req, res) => {
-  const { userId } = req.params;
-  const { name, age } = req.body;
+app.put("/api/users/:userId", async (req, res) => {
+  const { userId } = req.params
+  const { name, age } = req.body
 
-  const query = 'UPDATE users SET name = ?, age = ? WHERE id = ?';
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { id: parseInt(userId) },
+      data: { name, age : parseInt(age) },
+    })
 
-  connection.query(query, [name, age, userId], (err, results) => {
-    if (err) {
-      console.error('Error updating data:', err);
-      res.status(500).json({ message: 'Error updating data' });
-      return;
+    res.status(200).json({ message: "User updated successfully", updatedUser })
+  } catch (err) {
+    console.error("Error updating data:", err)
+
+    if (err.code === "P2025") {
+      // P2025 is the code for "Record to update not found"
+      res.status(404).json({ message: "User not found" })
+    } else {
+      res.status(500).json({ message: "Error updating data" })
     }
-
-    if (results.affectedRows === 0) {
-      res.status(404).json({ message: 'User not found' });
-      return;
-    }
-
-    res.status(200).json({ message: 'User updated successfully' });
-  });
-});
+  }
+})
 
 app.listen(port, () => {
-  console.log(`Server port ${port}`);
-});
+  console.log(`Server port ${port}`)
+})
