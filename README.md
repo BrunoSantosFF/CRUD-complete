@@ -17,6 +17,14 @@ cd backend
 npm init -y 
 npm install express mysql cors react-icons axios
 ```
+### Prisma (ORM):
+```bash
+npm install @prisma/cli --save-dev
+npm install @prisma/client
+npx prisma init
+npx prisma migrate dev --name init
+npx prisma generate
+```
 
 ### To run the project:
 
